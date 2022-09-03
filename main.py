@@ -1,6 +1,7 @@
 import time
 from types import NoneType
 
+import pyautogui
 from pyautogui import moveTo,scroll,sleep,click,hotkey,locateOnScreen
 
 
@@ -27,7 +28,7 @@ def position_mouse(element):
 
 
 
-def main():
+def auto_watcher():
 
     # open the tab that shows all the account who facourited that post
     star = wait_for_element_appear('ui\\star.png', 6, confidence=0.98)
@@ -35,11 +36,11 @@ def main():
 
     # watch all the accounts scrolling down when no '+ watch' is found
     for i in range(999):
-        watch = wait_for_element_appear('ui\\+watch.png', 1, confidence=0.9)
+        watch = wait_for_element_appear('ui\\+watch.png', 3, confidence=0.9)
 
         # '+ watch' cannot be found, so I scroll down
         if (type(watch) == NoneType):
-            watching = wait_for_element_appear('ui\\+watching.png', 2, confidence=0.9)
+            watching = wait_for_element_appear('ui\\+watching.png', 2, confidence=0.8)
             if (type(watching) == NoneType):
                 hotkey('alt','left')
                 sleep(2)
@@ -54,7 +55,17 @@ def main():
         print('watched!')
         sleep(0.5)
 
-    main()
+    auto_watcher()
+
+def auto_feature():
+    pyautogui.sleep(4)
+    pyautogui.PAUSE=0.02
+    for i in range(999):
+        for i in range(6):
+            pyautogui.press('tab')
+            # pyautogui.sleep(0.01)
+        pyautogui.press('space')
+        pyautogui.sleep(0.15)
 
 if __name__ == '__main__':
-    main()
+    auto_feature()
